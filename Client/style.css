@@ -1,0 +1,69 @@
+body {
+    background: #3d516b;
+}
+
+form {
+    width: 320px;
+    padding: 60px 25px 80px;
+    margin: 50px auto;
+    background: #f8d348;
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    font-size: 16px;
+    border: 0;
+    border-radius: 5px;
+    outline: 0;
+    padding: 10px 15px;
+    margin-top: 15px;
+}
+
+
+<!--로그인버튼-->
+body{
+  text-align:center;
+}
+body:before{
+  content:'';
+  height:50%;
+  display:inline-block;
+  vertical-align:middle;
+}
+button{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:30px;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+button:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+button:before,button:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+button:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+button:hover:before,button:hover:after{
+  width:20%;
+  transition:800ms ease all;
+}
