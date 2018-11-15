@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-app.use(express.static('staticDir')); //정적파일 서비스->수정후 서버 재실행 필요X
+app.use(express.static('public')); //정적파일 서비스->수정후 서버 재실행 필요X
 app.get('/', function(req, res){
   res.send('<img src="/mainHeader.png">');
 });
