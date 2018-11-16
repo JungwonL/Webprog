@@ -1,8 +1,8 @@
 {
-  "name": "server",
+  "name": "webprog",
   "version": "1.0.0",
-  "description": "webprogramming",
-  "main": "mysql.js",
+  "description": "webprog",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,19 +10,10 @@
     "type": "git",
     "url": "git+https://github.com/JungwonL/Webprog.git"
   },
-  "keywords": [
-    "webprog"
-  ],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JungwonL/Webprog/issues"
   },
-  "homepage": "https://github.com/JungwonL/Webprog#readme",
-  "dependencies": {
-    "express": "^4.16.4",
-    "jade": "^1.11.0",
-    "mysql": "^2.16.0",
-    "node-mysql": "^0.4.2"
-  }
+  "homepage": "https://github.com/JungwonL/Webprog#readme"
 }
