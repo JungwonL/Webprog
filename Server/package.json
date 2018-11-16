@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "webprog",
+  "main": "main.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "main.js": "0.0.1",
+    "mysql": "^2.16.0",
+    "node-mysql": "^0.4.2",
+    "pug": "^2.0.3",
+    "supervisor": "^0.12.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JungwonL/Webprog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JungwonL/Webprog/issues"
+  },
+  "homepage": "https://github.com/JungwonL/Webprog#readme"
+}
