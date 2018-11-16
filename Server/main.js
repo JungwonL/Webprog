@@ -3,17 +3,21 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var router = express.Router();
 //middleware
 app.use(express.static('../Client/public')); //정적파일 서비스->수정후 서버 재실행 필요X
 app.use(bodyParser.urlencoded({extended: false}));
 //pug
 app.locals.pretty = true;
-app.set('views', './views');
+app.set('views', '../Client/views');
 app.set('view engine', 'pug'); //pug연결
 //root page
 app.get('/', function(req, res){
   res.send('<img src="/mainHeader.png">');
 });
+// router.post('/test', function(req, res){
+//   res. redirect('../Client/1.html');
+// });
 /**/
 
 //other page linkage
