@@ -1,2 +1,0 @@
-This is a static text file.
-Adding img file is possible.
