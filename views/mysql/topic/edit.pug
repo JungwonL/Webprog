@@ -8,6 +8,8 @@ html(lang="en")
     title 탭타이틀
     //- // Bootstrap core CSS
     style
+      include ../../../css/util.css
+      include ../../../css/main.css
       include ../../../vendor/bootstrap/css/bootstrap.min.css
       include ../../../css/clean-blog.min.css
     //- link(href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css")
@@ -19,26 +21,7 @@ html(lang="en")
     //- link(href="css/clean-blog.min.css" rel="stylesheet" type="text/css")
   body
     // Navigation
-    nav#mainNav.navbar.navbar-expand-lg.navbar-light.fixed-top
-      .container
-        a.navbar-brand(href="index.html") 왼쪽위 타이틀
-        button.navbar-toggler.navbar-toggler-right(type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation")
-          | Menu
-          i.fas.fa-bars
-        #navbarResponsive.collapse.navbar-collapse
-          ul.navbar-nav.ml-auto
-            li.nav-item
-              a.nav-link(href="/") 오른쪽위(로그인따라다름)
-            li.nav-item
-              a.nav-link(href="/") Home
-            if user
-              li.nav-item
-                a.nav-link(href="/auth/logout") logout
-            else
-              li.nav-item
-                a.nav-link(href="/auth/login") login
-              li.nav-item
-                a.nav-link(href="/auth/register") register
+    include ../navigation.pug
     // Page Header
     header.masthead(style="background-image: url('../img/"+number+".jpg')")
       .overlay
@@ -53,15 +36,22 @@ html(lang="en")
       .row
         .col-lg-8.col-md-10.mx-auto
           .post-preview
+            span.login100-form-title.p-b-32
+              | 글 수정
             form(action='/topic/'+topic.id+'/edit' method='post')
-                p
-                    input(type='text' name='title' value=topic.title placeholder='title')
-                p
-                    textarea(name='description'  placeholder='description')=topic.description
-                    p
-                    input(type='text' name='author' value=topic.author placeholder='author')
-                p
-                    input(type='submit')
+              //-.login100-form
+              span.txt1.p-b-11
+                | 글 제목
+              div
+                input.input100(type='text' name='title' value=topic.title placeholder='title')
+              span.txt1.p-b-11
+                | 글 내용
+              div
+                textarea.input100(name='description'  placeholder='description',style="height:150px;")=topic.description
+              //- div
+              //-   input.input100(type='text' name='author' value=topic.author placeholder='author')
+              div
+                  input.login100-form-btn(type='submit')
           // Pager
           .clearfix
             
