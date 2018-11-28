@@ -35,7 +35,7 @@ module.exports=function(passport){
         } else {
           req.login(user, function(err){
             req.session.save(function(){
-              res.redirect('/topic');
+              res.redirect('/topic',{number:3});
             });
           });
         }
@@ -45,19 +45,19 @@ module.exports=function(passport){
   route.get('/register', function(req, res){
     var sql = 'select id,title from topic ';
     conn.query(sql,function(err,topics){
-      res.render('auth/register');
+      res.render('auth/register',{number:3});
     });        
   });
   route.get('/login', function(req, res){
     var sql = 'select id,title from topic ';
     conn.query(sql,function(err,topics){
-      res.render('auth/login');
+      res.render('auth/login',{number:3});
     });
   });
   route.get('/logout', function(req, res){
     req.logout();
     req.session.save(function(){
-      res.redirect('/auth/login');
+      res.redirect('/auth/login',{number:3});
     });
   });
   return route;
