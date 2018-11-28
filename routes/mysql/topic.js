@@ -8,7 +8,7 @@ module.exports = function (){
                 console.log(err);
                 res.status(500).send('err1');
             }
-            res.render('topic/add',{topics:topics, user:req.user});
+            res.render('topic/add',{topics:topics, user:req.user,number:3});
         });
         /*
         fs.readdir('data',function(err,files){
@@ -33,12 +33,12 @@ module.exports = function (){
                         console.log(err);
                         res.status(500).send('internal server error')
                     }else{
-                        res.render('topic/masterview',{topics:topics,topic:topic[0], user:req.user})
+                        res.render('topic/masterview',{topics:topics,topic:topic[0], user:req.user,number:3})
                     }
                 });                
             } else{
                 console.log(topics);        
-                res.render('topic/masterview',{topics:topics, user:req.user})  
+                res.render('topic/masterview',{topics:topics, user:req.user,number:3})  
             }           
         })
     });
@@ -49,7 +49,7 @@ module.exports = function (){
         var author = req.user.username;
         var sql = 'select * from topic where author=?';
         conn.query(sql,[author],function(err,topics,fields){        
-            res.render('topic/view',{topics:topics, user:req.user})  
+            res.render('topic/view',{topics:topics, user:req.user,number:3})  
         })
     });
     route.get(['/','/:id'],function(req,res){
@@ -66,11 +66,11 @@ module.exports = function (){
                         console.log(err);
                         res.status(500).send('internal server error')
                     }else{
-                        res.render('topic/view',{topics:topics,topic:topic[0], user:req.user})
+                        res.render('topic/view',{topics:topics,topic:topic[0], user:req.user,number:3})
                     }
                 })
             } else{
-                res.render('topic/view',{topics:topics, user:req.user})
+                res.render('topic/view',{topics:topics, user:req.user,number:3})
             }        
         })
     });
@@ -81,7 +81,7 @@ module.exports = function (){
             res.redirect('/topic');
         }
         conn.query(sql,[author],function(err,topics,fields){        
-            res.render('topic/view',{topics:topics, user:req.user})  
+            res.render('topic/view',{topics:topics, user:req.user,number:3})  
         })
     });
     
@@ -143,6 +143,9 @@ module.exports = function (){
         var title = req.body.title;
         var description = req.body.description;
         console.log(req.user);
+
+
+        var tag = 'tag';//<<--영헌이형 함수리턴 태그
         var author = req.user.username;
         var sql = 'insert into topic (title,description,author) values (?,?,?)';
         conn.query(sql,[title,description,author],function(err,result,fields){

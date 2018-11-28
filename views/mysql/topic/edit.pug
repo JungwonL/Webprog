@@ -40,7 +40,7 @@ html(lang="en")
               li.nav-item
                 a.nav-link(href="/auth/register") register
     // Page Header
-    header.masthead(style="background-image: url('img/home-bg.jpg')")
+    header.masthead(style="background-image: url('../img/"+number+".jpg')")
       .overlay
       .container
         .row
@@ -62,47 +62,6 @@ html(lang="en")
                     input(type='text' name='author' value=topic.author placeholder='author')
                 p
                     input(type='submit')
-          //-   a(href="post.html")
-          //-     h2.post-title
-          //-       | Man must explore, and this is exploration at its greatest
-          //-     h3.post-subtitle
-          //-       | Problems look mighty small from 150 miles up
-          //-   p.post-meta
-          //-     | Posted by
-          //-     a(href="#") Start Bootstrap
-          //-     |               on September 24, 2018
-          //- //- hr
-          //- .post-preview
-          //-   a(href="post.html")
-          //-     h2.post-title
-          //-       | I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-          //-   p.post-meta
-          //-     | Posted by
-          //-     a(href="#") Start Bootstrap
-          //-     |               on September 18, 2018
-          //- hr
-          //- .post-preview
-          //-   a(href="post.html")
-          //-     h2.post-title
-          //-       | Science has not yet mastered prophecy
-          //-     h3.post-subtitle
-          //-       | We predict too much for the next year and yet far too little for the next ten.
-          //-   p.post-meta
-          //-     | Posted by
-          //-     a(href="#") Start Bootstrap
-          //-     |               on August 24, 2018
-          //- hr
-          //- .post-preview
-          //-   a(href="post.html")
-          //-     h2.post-title
-          //-       | Failure is not an option
-          //-     h3.post-subtitle
-          //-       | Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-          //-   p.post-meta
-          //-     | Posted by
-          //-     a(href="#") Start Bootstrap
-          //-     |               on July 8, 2018
-          //- hr
           // Pager
           .clearfix
             
@@ -110,7 +69,8 @@ html(lang="en")
             if topic
               a(href='/topic/'+topic.id+'/edit') edit  
               a(href='/topic/'+topic.id+'/delete') delete  
-            a.btn.btn-primary.float-right(href="#") 이버튼재활용생각해봅시다 →
+            a(href='/topic') list
+            //- a.btn.btn-primary.float-right(href="#") 이버튼재활용생각해봅시다 →
     hr
     // Footer
     footer

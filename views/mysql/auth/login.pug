@@ -6,17 +6,11 @@ html(lang="en")
     meta(name="description" content="")
     meta(name="author" content="")
     title 탭타이틀
-    //- // Bootstrap core CSS
     style
+      include ../../../css/util.css
+      include ../../../css/main.css
       include ../../../vendor/bootstrap/css/bootstrap.min.css
       include ../../../css/clean-blog.min.css
-    //- link(href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css")
-    //- // Custom fonts for this template
-    //- link(href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css")
-    //- link(href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css")
-    //- link(href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css")
-    //- // Custom styles for this template
-    //- link(href="css/clean-blog.min.css" rel="stylesheet" type="text/css")
   body
     // Navigation
     nav#mainNav.navbar.navbar-expand-lg.navbar-light.fixed-top
@@ -40,8 +34,7 @@ html(lang="en")
               li.nav-item
                 a.nav-link(href="/auth/register") register
     // Page Header
-    header.masthead(style="background-image: url('img/home-bg.jpg')")
-      .overlay
+    header.masthead(style="background-image: url('../img/"+number+".jpg')")
       .container
         .row
           .col-lg-8.col-md-10.mx-auto
@@ -53,71 +46,21 @@ html(lang="en")
       .row
         .col-lg-8.col-md-10.mx-auto
           .post-preview
-            form(action='/auth/login', method='post')
+            span.login100-form-title.p-b-32
+              | Login
+            form.login100-form(action='/auth/login', method='post')
+              span.txt1.p-b-11
+                | Username
+              div
+                input.input100(type='text', name='username', placeholder='username')
+              span.txt1.p-b-11
+                | Password
+              div
+                input.input100(type='password', name='password', placeholder='password')
               p
-                input(type='text', name='username', placeholder='username')
-              p
-                input(type='password', name='password', placeholder='password')
-              p
-                input(type='submit')
-            //- if topics
-            //-   each topic in topics
-            //-     a(href="/topic/"+topic.id)
-            //-       h2.post-title
-            //-         =topic.title
-            //-       h3.post-subtitle
-            //-         =topic.description
-            //-     hr
-            //- else
-            //-   a(href="/글리스트못불러옴")
-            //-     h2.post-title
-            //-       | 글리스트 못불러옴
-            //-     h3.post-subtitle
-            //-       | 디비 연동하면 이자리가 바뀔거임 ..
-          //-   a(href="post.html")
-          //-     h2.post-title
-          //-       | Man must explore, and this is exploration at its greatest
-          //-     h3.post-subtitle
-          //-       | Problems look mighty small from 150 miles up
-          //-   p.post-meta
-          //-     | Posted by
-          //-     a(href="#") Start Bootstrap
-          //-     |               on September 24, 2018
-          //- //- hr
-          //- .post-preview
-          //-   a(href="post.html")
-          //-     h2.post-title
-          //-       | I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-          //-   p.post-meta
-          //-     | Posted by
-          //-     a(href="#") Start Bootstrap
-          //-     |               on September 18, 2018
-          //- hr
-          //- .post-preview
-          //-   a(href="post.html")
-          //-     h2.post-title
-          //-       | Science has not yet mastered prophecy
-          //-     h3.post-subtitle
-          //-       | We predict too much for the next year and yet far too little for the next ten.
-          //-   p.post-meta
-          //-     | Posted by
-          //-     a(href="#") Start Bootstrap
-          //-     |               on August 24, 2018
-          //- hr
-          //- .post-preview
-          //-   a(href="post.html")
-          //-     h2.post-title
-          //-       | Failure is not an option
-          //-     h3.post-subtitle
-          //-       | Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-          //-   p.post-meta
-          //-     | Posted by
-          //-     a(href="#") Start Bootstrap
-          //-     |               on July 8, 2018
-          //- hr
+                input.login100-form-btn(type='submit')
           // Pager
           .clearfix
-            a.btn.btn-primary.float-right(href="#") 이버튼재활용생각해봅시다 →
     hr
     // Footer
     footer

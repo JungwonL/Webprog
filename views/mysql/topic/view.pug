@@ -40,7 +40,7 @@ html(lang="en")
               li.nav-item
                 a.nav-link(href="/auth/register") register
     // Page Header
-    header.masthead(style="background-image: url('img/home-bg.jpg')")
+    header.masthead(style="background-image: url('../img/"+number+".jpg')")
       .overlay
       .container
         .row
@@ -121,6 +121,7 @@ html(lang="en")
             if topic
               a(href='/topic/'+topic.id+'/edit') edit  
               a(href='/topic/'+topic.id+'/delete') delete  
+            a(href='/topic') list
             a.btn.btn-primary.float-right(href="#") 이버튼재활용생각해봅시다 →
     hr
     // Footer
