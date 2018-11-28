@@ -143,6 +143,9 @@ module.exports = function (){
         var title = req.body.title;
         var description = req.body.description;
         console.log(req.user);
+
+
+        var tag = 'tag';//<<--영헌이형 함수리턴 태그
         var author = req.user.username;
         var sql = 'insert into topic (title,description,author) values (?,?,?)';
         conn.query(sql,[title,description,author],function(err,result,fields){

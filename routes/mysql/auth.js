@@ -57,7 +57,7 @@ module.exports=function(passport){
   route.get('/logout', function(req, res){
     req.logout();
     req.session.save(function(){
-      res.redirect('/auth/login',{number:3});
+      res.redirect('/auth/login');
     });
   });
   return route;

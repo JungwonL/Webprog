@@ -20,5 +20,13 @@
     "pbkdf2-password": "^1.2.1",
     "pug": "^2.0.3"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JungwonL/Webprog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JungwonL/Webprog/issues"
+  },
+  "homepage": "https://github.com/JungwonL/Webprog#readme"
 }
