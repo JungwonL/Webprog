@@ -12,26 +12,7 @@ html(lang="en")
       include ../../../css/clean-blog.min.css
   body
     // Navigation
-    nav#mainNav.navbar.navbar-expand-lg.navbar-light.fixed-top
-      .container
-        a.navbar-brand(href="index.html") 왼쪽위 타이틀
-        button.navbar-toggler.navbar-toggler-right(type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation")
-          | Menu
-          i.fas.fa-bars
-        #navbarResponsive.collapse.navbar-collapse
-          ul.navbar-nav.ml-auto
-            li.nav-item
-              a.nav-link(href="/") 오른쪽위(로그인따라다름)
-            li.nav-item
-              a.nav-link(href="/") Home
-            if user
-              li.nav-item
-                a.nav-link(href="/auth/logout") logout
-            else
-              li.nav-item
-                a.nav-link(href="/auth/login") login
-              li.nav-item
-                a.nav-link(href="/auth/register") register
+    include ../navigation.pug
     // Page Header
     header.masthead(style="background-image: url('../img/"+number+".jpg')")
       .overlay

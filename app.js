@@ -18,6 +18,6 @@ app.get('/',function(req,res){
         res.render("new", {user:req.user,number:3});
     }
 })
-app.listen(2500,function(){
-    console.log('2500 gogo pugtest');
+app.listen(3000,function(){
+    console.log('3000 gogo pugtest');
 })

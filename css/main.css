@@ -140,7 +140,7 @@ iframe {
 [ Utility ]*/
 .txt1 {
   font-family: Raleway-SemiBold;
-  font-size: 13px;
+  font-size: 15px;
   color: #555555;
   line-height: 1.4;
   text-transform: uppercase;
@@ -214,6 +214,7 @@ iframe {
   line-height: 1.2;
   text-transform: uppercase;
   text-align: center;
+  font-weight:blod;
 
   width: 100%;
   display: block;
