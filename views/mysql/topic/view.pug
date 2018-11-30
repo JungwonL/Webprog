@@ -8,6 +8,7 @@ html(lang="en")
     title 탭타이틀
     //- // Bootstrap core CSS
     style
+      
       include ../../../vendor/bootstrap/css/bootstrap.min.css
       include ../../../css/clean-blog.min.css
     //- link(href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css")
@@ -19,35 +20,10 @@ html(lang="en")
     //- link(href="css/clean-blog.min.css" rel="stylesheet" type="text/css")
   body
     // Navigation
-    nav#mainNav.navbar.navbar-expand-lg.navbar-light.fixed-top
-      .container
-        a.navbar-brand(href="index.html") 왼쪽위 타이틀
-        button.navbar-toggler.navbar-toggler-right(type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation")
-          | Menu
-          i.fas.fa-bars
-        #navbarResponsive.collapse.navbar-collapse
-          ul.navbar-nav.ml-auto
-            li.nav-item
-              a.nav-link(href="/") 오른쪽위(로그인따라다름)
-            li.nav-item
-              a.nav-link(href="/") Home
-            if user
-              li.nav-item
-                a.nav-link(href="/auth/logout") logout
-            else
-              li.nav-item
-                a.nav-link(href="/auth/login") login
-              li.nav-item
-                a.nav-link(href="/auth/register") register
+    include ../navigation.pug
     // Page Header
     header.masthead(style="background-image: url('../img/"+number+".jpg')")
-      .overlay
-      .container
-        .row
-          .col-lg-8.col-md-10.mx-auto
-            .site-heading
-              h1 정중앙 큰글
-              span.subheading 정중앙 큰글아래 작은글
+      include ../page_header.pug
     // Main Content
     .container
       .row
@@ -73,47 +49,6 @@ html(lang="en")
                   | 로그인을 해주세요!!
                 h3.post-subtitle
                   | 로그인을 하시면 본인이 쓴 글들이 이곳에 나타납니다 ^\&^
-          //-   a(href="post.html")
-          //-     h2.post-title
-          //-       | Man must explore, and this is exploration at its greatest
-          //-     h3.post-subtitle
-          //-       | Problems look mighty small from 150 miles up
-          //-   p.post-meta
-          //-     | Posted by
-          //-     a(href="#") Start Bootstrap
-          //-     |               on September 24, 2018
-          //- //- hr
-          //- .post-preview
-          //-   a(href="post.html")
-          //-     h2.post-title
-          //-       | I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-          //-   p.post-meta
-          //-     | Posted by
-          //-     a(href="#") Start Bootstrap
-          //-     |               on September 18, 2018
-          //- hr
-          //- .post-preview
-          //-   a(href="post.html")
-          //-     h2.post-title
-          //-       | Science has not yet mastered prophecy
-          //-     h3.post-subtitle
-          //-       | We predict too much for the next year and yet far too little for the next ten.
-          //-   p.post-meta
-          //-     | Posted by
-          //-     a(href="#") Start Bootstrap
-          //-     |               on August 24, 2018
-          //- hr
-          //- .post-preview
-          //-   a(href="post.html")
-          //-     h2.post-title
-          //-       | Failure is not an option
-          //-     h3.post-subtitle
-          //-       | Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-          //-   p.post-meta
-          //-     | Posted by
-          //-     a(href="#") Start Bootstrap
-          //-     |               on July 8, 2018
-          //- hr
           // Pager
           .clearfix
             
@@ -126,28 +61,4 @@ html(lang="en")
     hr
     // Footer
     footer
-      .container
-        .row
-          .col-lg-8.col-md-10.mx-auto
-            ul.list-inline.text-center
-              li.list-inline-item
-                a(href="#")
-                  span.fa-stack.fa-lg
-                    i.fas.fa-circle.fa-stack-2x
-                    i.fab.fa-twitter.fa-stack-1x.fa-inverse
-              li.list-inline-item
-                a(href="#")
-                  span.fa-stack.fa-lg
-                    i.fas.fa-circle.fa-stack-2x
-                    i.fab.fa-facebook-f.fa-stack-1x.fa-inverse
-              li.list-inline-item
-                a(href="#")
-                  span.fa-stack.fa-lg
-                    i.fas.fa-circle.fa-stack-2x
-                    i.fab.fa-github.fa-stack-1x.fa-inverse
-            p.copyright.text-muted Copyright © Your Website 2018
-    // Bootstrap core JavaScript
-    script(src="./vendor/jquery/jquery.min.js")
-    script(src="./vendor/bootstrap/js/bootstrap.bundle.min.js")
-    // Custom scripts for this template
-    script(src="./js/clean-blog.min.js")
+      //- include ../footer.pug

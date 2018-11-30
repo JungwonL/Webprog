@@ -10,15 +10,6 @@ module.exports = function (){
             }
             res.render('topic/add',{topics:topics, user:req.user,number:3});
         });
-        /*
-        fs.readdir('data',function(err,files){
-            if(err){
-                console.log(err);
-                res.status(500).send('err1');
-            }
-            res.render('add',{topics:files});
-        })
-        */
     });
     route.get(['/master','/master/:id'],function(req,res){
         var sql1 = 'select id,title from topic';
@@ -85,60 +76,7 @@ module.exports = function (){
         })
     });
     
-    // route.get('/onlyuser',function(req,res){
-    //     function a(req){console.log(req);}//<--이거왜 안찍음
-    //     a();
-    //     res.send('hi');
-    //     // var author = req.user.username;
-    //     // var sql = 'select id,title from topic where author=?';
-    //     // console.log(author);
-    //     // conn.query(sql,[author],function(err,topics,fields){
-    //     //     console.log(topics);        
-    //         // res.render('topic/view',{topics:topics, user:req.user})  
-    //     // })
-    // });
-    
-        /*
-        fs.readdir('data',function(err,files){
-            if(err){
-                console.log(err);
-                res.status(500).send('err1');
-            }
-            //id값이 잇을때 
-            var id = req.params.id;
-            if(id){
-                fs.readFile('data/'+id,'utf8',function(err,data){
-                    if(err){
-                        console.log(err);
-                        res.status(500).send('err2');
-                    }
-                    res.render('view',{topics:files,title:id,description:data});
-                })
-            } else {
-                res.render('view', {topics:files,title:'Welcome',description:'Hello. JaaScript for srver.'});
-            }
-           
-        })    
-        */
-    
-    /*
-    route.get('/topic/:id',function(req,res){
-        var id = req.params.id;
-        fs.readdir('data',function(err,files){
-            if(err){
-                console.log(err);
-                res.status(500).send('err1');
-            }
-            
-            fs.readFile('data/'+id,'utf8',function(err,data){
-                if(err){
-                    console.log(err);
-                    res.status(500).send('err2');
-                }
-                res.render('view',{topics:files,title:id,description:data});
-            })
-        })
-    })*/
+   
     route.post('/add',function(req,res){
         var title = req.body.title;
         var description = req.body.description;
@@ -170,7 +108,7 @@ module.exports = function (){
                         console.log(err);
                         res.status(500).send('internal server error')
                     }else{
-                        res.render('topic/edit',{topics:topics,topic:topic[0], user:req.user})
+                        res.render('topic/edit',{topics:topics,topic:topic[0],user:req.user,number:3})
                     }
                 })
             } else{
@@ -212,7 +150,7 @@ module.exports = function (){
                         res.status(500).send('Internal SErver Error');
                     } else {
                          //res.send(topic);
-                       res.render('topic/delete',{topics:topics,topic:topic[0], user:req.user});
+                       res.render('topic/delete',{topics:topics,topic:topic[0], user:req.user,number:3});
                     }
                    
                 }
