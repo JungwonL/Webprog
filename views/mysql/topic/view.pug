@@ -15,7 +15,7 @@ html(lang="en")
     include ../navigation.pug
     // Page Header
     header.masthead(style="background-image: url('../img/"+number+".jpg')")
-      include ../page_header.pug
+      include ../header.pug
     // Main Content
     .container
       .row
@@ -42,8 +42,7 @@ html(lang="en")
                 h3.post-subtitle
                   | 로그인을 하시면 본인이 쓴 글들이 이곳에 나타납니다 ^\&^
           // Pager
-          .clearfix
-            
+          .topicFunc            
             a(href='/topic/add') add  
             if topic
               a(href='/topic/'+topic.id+'/edit') edit  

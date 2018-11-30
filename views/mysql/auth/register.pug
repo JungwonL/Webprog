@@ -37,10 +37,24 @@ html(lang="en")
                 | Password Check
               div
                 input.input100(type='text', name='displayName', placeholder='password ckeck')
-              div
-                input.login100-form-btn(type='submit',style="margin-top:18px;")
-          // Pager
-          .clearfix
+              p
+              span.txt1.p-b-11
+                | Select your main picture
+    div
+  - for(vari=1; i <5; i++){
+    div(style="display:inline;")
+      label
+        img(src="../../img/"+i+".jpg")
+      div
+        input(type='radio', name="picture", value=i)
+  - }
+  p
+  - for(var i=1; i <5; i++){
+      
+  - }
+  div
+    input.login100-form-btn(type='submit',style="margin-top:18px;")
+
     hr
     // Footer
     footer
