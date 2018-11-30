@@ -35,7 +35,7 @@ module.exports=function(passport){
         } else {
           req.login(user, function(err){
             req.session.save(function(){
-              res.redirect('/topic',{number:3});
+              res.redirect('/topic');
             });
           });
         }
