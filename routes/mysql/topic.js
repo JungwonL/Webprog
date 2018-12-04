@@ -106,9 +106,9 @@ module.exports = function (){
                 conn.query(sql,[id],function(err,topic,fields){
                     if(err){
                         console.log(err);
-                        res.status(500).send('internal server error')
+                        res.status(500).send('internal server error1')
                     }else{
-                        res.render('topic/edit',{topics:topics,topic:topic[0],user:req.user,number:3})
+                        res.render('topic/edit',{topics:topics,topic:topic[0],user:req.user})
                     }
                 })
             } else{
@@ -121,13 +121,12 @@ module.exports = function (){
     route.post(['/:id/edit'],function(req,res){
         var title =req.body.title;
         var description =req.body.description;
-        var author =req.body.author;
         var id =req.params.id;
-        var sql = 'update topic set title=?, description=?, author=? where id=?'
-        conn.query(sql,[title,description,author,id],function(err,result,fields){
+        var sql = 'update topic set title=?, description=? where id=?'
+        conn.query(sql,[title,description,id],function(err,result,fields){
             if(err){
                 console.log(err);
-                res.status(500).send('internal serer error');
+                res.status(500).send('internal serer error2');
             } else {
                 res.redirect('/topic/'+id);
             }
