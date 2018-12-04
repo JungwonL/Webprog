@@ -13,23 +13,78 @@ html(lang="en")
       include ../../../css/clean-blog.min.css
     script(src="http://code.jquery.com/jquery-1.11.1.min.js")
     script(type="text/javascript").
+      function idnullcheck(){
+        alert('ajax진입');
+        $.ajax({
+          url:'/auth/idcheck',
+          type:'post',
+          dataType:'text',
+          data:{
+            username:$('#username').val()
+          },
+          success:function(data){
+            console.log(data);
+            alert('data:'+data);
+            alert('typeof(data):'+typeof(data));
+            alert('username:'+$('#username').val());
+            alert('typeof:(username)'+typeof($('#username').val()));
+            if(data==$('#username').val()){
+              alert('아이디사용가능');
+              $('#username').val(data);
+            }else{
+              alert('아이디 사용중 희망아이디 사용불가');
+              $('#username').val(data); 
+              event.preventDefult();
+            }
+          }
+        });
+        alert('아이디입력감지');
+      }
+        function passsamecheck(){
+          alert('비밀번호동일여부파악중');
+          var passck1=$('#password').val();
+          var passck2=$('#passwordck').val();
+          if(passck1 !=passck2){
+            alert("입력하신 두비밀번호가 일치하지 않습니다.");
+            $('#password').val('');
+            $('#passwordck').val('');
+            return false;
+          }else{
+            alert('두비밀번호 동일!');
+          }
+        }
+        function picturenullcheck(){
+          alert('사진입력감지중');
+          var picture=$('input[name="picture"]:checked').val();
+          alert('picture:'+picture);
+        }
       $(document).ready(function(){
         $('#btnRegister').click(function(){
-          var passck1=$('#password').val();
           var username=$('#username').val();
+          var passck1=$('#password').val();
           var passck2=$('#passwordck').val();
+          var picture=$('input[name="picture"]:checked').val();
           if(username ==''){
             alert("공백의 아이디로 회원가입하실 수 없습니다.");
             return false;
           }
           if(passck1 !=passck2){
             alert("입력하신 두비밀번호가 일치하지 않습니다.");
+            $('#password').val('');
+            $('#passwordck').val('');
             return false;
           }
-          if(passck1 == passck2){
-            alert("회원가입이 완료되었습니다.");
-            return true;
-          }   
+          if(passck1 == ''){
+            alert("공백의 비밀번호로 회원가입하실 수 없습니다.");
+            return false;
+          }
+          if(picture==undefined||picture==''){
+            alert("배경사진을 고르지 않았습니다.");
+            return false;
+          }
+          alert('picture:'+picture+'typeof(picture)'+typeof(picture));
+          //- alert('테스트로 회원가입을 막겠습니다.');
+          //- event.preventDefault();
         })
       })
   body
@@ -41,36 +96,36 @@ html(lang="en")
     // Main Content
     .container
       .row
-        .col-lg-8.col-md-10.mx-auto
-          .post-preview
-            span.login100-form-title.p-b-32
-              | Register
-            form.login100-form(action='/auth/register', method='post')
-              span.txt1.p-b-11
-                | Username
-              div
-                input.input100(type='text', name='username', placeholder='username',id='username')
-              span.txt1.p-b-11
-                | Password
-              div
-                input.input100(type='password', name='password', placeholder='password',id='password')
-              span.txt1.p-b-11
-                | Password Check
-              div
-                input.input100(type='password', name='passwordck', placeholder='password ckeck',id='passwordck')
-              p
-              span.txt1.p-b-11
-                | Select your main picture
-        div(style="text-align:center;width:1110px;")
-          - for(var i=1; i <5; i++){
-            div(style="display:inline;width:270px;height:210px;margin:3px;")
-              label
-                img(src="../../img/"+i+".jpg" style="width:270px;height:200px;")
-                div(style="text-align:center")
-                  input(type='radio', name="picture", value=i)
-            -}
-        div(style="text-align:center;margin:auto;")
-          input.login100-form-btn(type='submit',style="margin-top:18px;",id="btnRegister")
+        //- .col-lg-8.col-md-10.mx-auto
+        //-   .post-preview
+        span.login100-form-title.p-b-32
+          | Register
+        form(action='/auth/register', method='post',style="margin:auto;text-align:center")
+          span.txt1.p-b-11
+            | Username
+          div
+            input.input100(type='text', name='username', placeholder='username',id='username',onchange="idnullcheck()")
+          span.txt1.p-b-11
+            | Password
+          div
+            input.input100(type='password', name='password', placeholder='password',id='password')
+          span.txt1.p-b-11
+            | Password Check
+          div
+            input.input100(type='password', name='passwordck', placeholder='password ckeck',id='passwordck',onchange="passsamecheck()")
+          p
+          span.txt1.p-b-11
+            | Select your main picture
+          div(style="text-align:center;width:1110px;")
+            - for(var i=1; i <5; i++){
+              div(style="display:inline;width:270px;height:210px;margin:3px;")
+                label
+                  img(src="../../img/"+i+".jpg" style="width:270px;height:200px;")
+                  div(style="text-align:center")
+                    input(type='radio', name="picture", value=i,onchange="picturenullcheck()",checked)
+              -}
+          div(style="text-align:center;margin:auto;",id="btnplace")
+            input.login100-form-btn(type='submit',style="margin-top:18px;",id="btnRegister")
 
     hr
     // Footer

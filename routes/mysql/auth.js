@@ -25,7 +25,8 @@ module.exports=function(passport){
         username:req.body.username,
         password:hash,
         salt:salt,
-        displayName:req.body.displayName
+        displayName:req.body.displayName,
+        picture:req.body.picture
       };
       var sql = 'INSERT INTO users SET ?';
       conn.query(sql, user, function(err, results){
@@ -54,6 +55,17 @@ module.exports=function(passport){
       res.render('auth/login',{number:3});
     });
   });
+  route.post('/idcheck',function(req,res){
+    var sql = 'select username from users where username=?'
+    username=req.body.username;
+    conn.query(sql,[username],function(err,row){
+      if(row[0]==undefined){
+        res.send(username);
+      }else{
+        res.send('Someone already using T.T');
+      }
+    })
+  })
   route.get('/logout', function(req, res){
     req.logout();
     req.session.save(function(){
