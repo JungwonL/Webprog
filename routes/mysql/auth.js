@@ -46,13 +46,13 @@ module.exports=function(passport){
   route.get('/register', function(req, res){
     var sql = 'select id,title from topic ';
     conn.query(sql,function(err,topics){
-      res.render('auth/register',{number:3});
+      res.render('auth/register');
     });        
   });
   route.get('/login', function(req, res){
     var sql = 'select id,title from topic ';
     conn.query(sql,function(err,topics){
-      res.render('auth/login',{number:3});
+      res.render('auth/login');
     });
   });
   route.post('/idcheck',function(req,res){

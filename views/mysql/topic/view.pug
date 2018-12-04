@@ -14,8 +14,7 @@ html(lang="en")
     // Navigation
     include ../navigation.pug
     // Page Header
-    header.masthead(style="background-image: url('../img/"+number+".jpg')")
-      include ../header.pug
+    include ./header1.pug
     // Main Content
     .container
       .row
@@ -48,7 +47,7 @@ html(lang="en")
               a(href='/topic/'+topic.id+'/edit') edit  
               a(href='/topic/'+topic.id+'/delete') delete  
             a(href='/topic') list
-            a.btn.btn-primary.float-right(href="#") 이버튼재활용생각해봅시다 →
+            //- a.btn.btn-primary.float-right(href="#") 이버튼재활용생각해봅시다 →
     hr
     // Footer
     footer

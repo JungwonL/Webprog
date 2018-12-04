@@ -121,10 +121,9 @@ module.exports = function (){
     route.post(['/:id/edit'],function(req,res){
         var title =req.body.title;
         var description =req.body.description;
-        var author =req.body.author;
         var id =req.params.id;
-        var sql = 'update topic set title=?, description=?, author=? where id=?'
-        conn.query(sql,[title,description,author,id],function(err,result,fields){
+        var sql = 'update topic set title=?, description=? where id=?'
+        conn.query(sql,[title,description,id],function(err,result,fields){
             if(err){
                 console.log(err);
                 res.status(500).send('internal serer error');
