@@ -13,43 +13,24 @@ html(lang="en")
       include ../../../css/clean-blog.min.css
     script(src="http://code.jquery.com/jquery-1.11.1.min.js")
     script(type="text/javascript").
-      $(document).ready(function(){
-        $('#btnRegister').click(function(){
-          var passck1=$('#password').val();
-          var username=$('#username').val();
-          var passck2=$('#passwordck').val();
-          if(username ==''){
-            alert("공백의 아이디로 회원가입하실 수 없습니다.");
-            return false;
+      function accounttest(){
+        $.ajax({
+          url:'/auth/logincheck',
+          type:'post',
+          dataType:'text',
+          data:{
+            username:$('#username').val(),
+            password:$('#password').val()
+          },
+          success:function(data){
+            if(data=='로그인성공'){
+              alert('로그인 성공');
+            }else{
+              alert('로그인 실패');
+            }
           }
-          if(passck1 !=passck2){
-            alert("입력하신 두비밀번호가 일치하지 않습니다.");
-            return false;
-          }
-          if(passck1 == passck2){
-            alert("회원가입이 완료되었습니다.");
-            return true;
-          }   
-        }
-        
-          //- else{
-          //-   $.ajax(){
-          //-     type:"post",
-          //-     url:"/auth/register",
-          //-     contentType:"application/json;charset=utf8",
-          //-     datatype:"json",
-          //-     data: JSON.stringify({"username":username,"password":password}),
-          //-     success: function(data){
-          //-       if(data.code == "200" {
-          //-         alert("회원가입 성공!!");
-          //-       } else{
-          //-         alert("회원가입 실패!!");
-          //-       },
-          //-       error: function(){
-          //-         alert(data);
-          //-       })
-          //-     }
-        )
+        });
+      }
   body
     // Navigation
     include ../navigation.pug
@@ -67,13 +48,13 @@ html(lang="en")
               span.txt1.p-b-11
                 | Username
               div
-                input.input100(type='text', name='username', placeholder='username')
+                input.input100(type='text', name='username', placeholder='username',id='username')
               span.txt1.p-b-11
                 | Password
               div
-                input.input100(type='password', name='password', placeholder='password')
+                input.input100(type='password', name='password', placeholder='password',id='password')
               p
-                input.login100-form-btn(type='submit')
+                input.login100-form-btn(type='submit',id="btnLogin",onclick="accounttest()")
           // Pager
           .topicFunc
     hr

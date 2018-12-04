@@ -11,7 +11,7 @@ module.exports=function(passport){
         {
           successRedirect: '/topic',
           failureRedirect: '/auth/login',
-          failureFlash: false
+          failureFlash: true
         }
       )
     );
@@ -25,7 +25,8 @@ module.exports=function(passport){
         username:req.body.username,
         password:hash,
         salt:salt,
-        displayName:req.body.displayName
+        displayName:req.body.displayName,
+        picture:req.body.picture
       };
       var sql = 'INSERT INTO users SET ?';
       conn.query(sql, user, function(err, results){
@@ -54,11 +55,36 @@ module.exports=function(passport){
       res.render('auth/login',{number:3});
     });
   });
+  route.post('/idcheck',function(req,res){
+    var sql = 'select username from users where username=?'
+    var username=req.body.username;
+    conn.query(sql,[username],function(err,row){
+      if(row[0]==undefined){
+        res.send(username);
+      }else{
+        res.send('Someone already using T.T');
+      }
+    })
+  })
   route.get('/logout', function(req, res){
     req.logout();
     req.session.save(function(){
       res.redirect('/auth/login');
     });
   });
+  route.post('/logincheck',function(req,res){
+    sql='select * from users where username=?';
+    var username=req.body.username;
+    var password=req.body.password;
+    conn.query(sql,[username],function(err,row){        
+        hasher({password:password, salt:row[0].salt}, function(err, pass, salt, hash){
+          if(hash === row[0].password){
+              res.send('로그인성공');
+          } else {
+              res.send('로그인실패');
+          }
+        })
+    });
+  })  
   return route;
 }

@@ -242,11 +242,12 @@ iframe {
   font-size: 18px;
 
   display: block;
-  width: 100%;
+  width: 338px;
   background: transparent;
   height: 55px;
   padding: 0 25px 0 25px;
   border:1px solid;height: 35px;
+  margin:auto;
 }
 /*------------------------------------------------------------------
 [ Focus Input ]*/
