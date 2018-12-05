@@ -61,7 +61,7 @@ module.exports = function (){
                     }
                 })
             } else{
-                res.render('topic/view',{topics:topics, user:req.user,number:3})
+                res.render('topic/view',{topics:topics, user:req.user})
             }        
         })
     });
@@ -72,7 +72,7 @@ module.exports = function (){
             res.redirect('/topic');
         }
         conn.query(sql,[author],function(err,topics,fields){        
-            res.render('topic/view',{topics:topics, user:req.user,number:3})  
+            res.render('topic/view',{topics:topics, user:req.user})  
         })
     });
     
@@ -80,18 +80,22 @@ module.exports = function (){
     route.post('/add',function(req,res){
         var title = req.body.title;
         var description = req.body.description;
+        var openCheck = req.body.chkBox;
+        console.log(openCheck);        
+        
         console.log(req.user);
 
 
         var tag = 'tag';//<<--영헌이형 함수리턴 태그
         var author = req.user.username;
-        var sql = 'insert into topic (title,description,author) values (?,?,?)';
-        conn.query(sql,[title,description,author],function(err,result,fields){
+        var sql = 'insert into topic (title,description,author,open) values (?,?,?,?)';
+        conn.query(sql,[title,description,author,openCheck],function(err,result,fields){
             if(err){
                 console.log(err);
                 res.status(500).send('Internal Server Error');
             }
             else{
+                console.log(openCheck);
                 res.redirect('/topic/'+result.insertId);
             }
     

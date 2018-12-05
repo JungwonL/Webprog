@@ -12,7 +12,7 @@ html(lang="en")
       include ../../../css/main.css
       include ../../../vendor/bootstrap/css/bootstrap.min.css
       include ../../../css/clean-blog.min.css
-
+    script(src="http://code.jquery.com/jquery-1.11.1.min.js")      
   body
     // Navigation
     include ../navigation.pug
@@ -30,15 +30,24 @@ html(lang="en")
               span.txt1.p-b-11
                 | 글 제목
               div
-                input.input100(type='text' name='title' placeholder='title')
+                input.input100(type='text' name='title' placeholder='title' onchange='openFunc()')
               span.txt1.p-b-11
-                | 글 제목
+                | 글 내용
               div
                 textarea.input100(name='description' placeholder='description',style="height:150px;")
-              //- p
-              //-     input(type='text' name='author' placeholder='author')
+              p
               div
-                  input.login100-form-btn(type='submit')
+              span.txt3(id="chkBox")
+                | *비밀글 희망시 체크해주세요  
+                input(type="checkbox" name="chkBox" value="open")
+              div
+                input.login100-form-btn(type='submit')
+                script(type="text/javascript").
+                  var openFunc = function(){
+                    var c = $('#chkbox').is(":checked");
+                    alert(c);
+                  }
+                  alert(document.getElementById("chkBox").getAttribute("checked"))
           //-   a(h
           // Pager
           .topicFunc            

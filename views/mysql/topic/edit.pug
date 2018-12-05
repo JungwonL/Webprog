@@ -33,8 +33,11 @@ html(lang="en")
                 | 글 내용
               div
                 textarea.input100(name='description'  placeholder='description',style="height:150px;")=topic.description
-              //- div
-              //-   input.input100(type='text' name='author' value=topic.author placeholder='author')
+              p
+              div
+              span.txt3
+                | *비밀글 희망시 체크해주세요  
+                input(type="checkbox" name="chkBox")
               div
                   input.login100-form-btn(type='submit')
           // Pager
