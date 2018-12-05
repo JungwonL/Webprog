@@ -10,7 +10,7 @@ html(lang="en")
     style
       include ../../vendor/bootstrap/css/bootstrap.min.css
       include ../../css/clean-blog.min.css
-    
+    script(src="http://code.jquery.com/jquery-1.11.1.min.js")
   body
     // Navigation
     include ./navigation.pug
@@ -21,9 +21,15 @@ html(lang="en")
       .row
         .col-lg-8.col-md-10.mx-auto
           .post-preview
-            if topics
+            if topic
+              h2.post-title
+                =topic.title
+              h3.post-subtitle
+                =topic.description
+                div= '       by '+topic.author
+            else if topics
               each topic in topics
-                a(href="/topic/"+topic.id)
+                a(href="/topic/new/"+topic.id)
                   h2.post-title
                     =topic.title
                   h3.post-subtitle
@@ -32,8 +38,6 @@ html(lang="en")
             else
               a(href="/글리스트못불러옴")
                 h2.post-title
-                  | 로그인을 해주세요!!
-                h3.post-subtitle
                   | 로그인을 하시면 본인이 쓴 글들이 이곳에 나타납니다 ^&^
           // Pager
     hr

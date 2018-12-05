@@ -45,14 +45,38 @@ module.exports = function (){
         })
     });
     route.get('/',function(req,res){        
-        if(!req.user){
-            res.redirect('/auth/login');
+        if(!req.user || !req.user.username){
+            res.redirect('/topic/new');
+        }else{
+            var author = req.user.username;
+            var sql = 'select * from topic where author=?';
+            conn.query(sql,[author],function(err,topics,fields){        
+                res.render('topic/view',{topics:topics, user:req.user})  
+            })
         }
-        var author = req.user.username;
-        var sql = 'select * from topic where author=?';
-        conn.query(sql,[author],function(err,topics,fields){        
-            res.render('topic/view',{topics:topics, user:req.user})  
-        })
+    });
+    route.get(['/new','/new/:id'],function(req, res){
+        var id = req.params.id;
+        var sql1 = 'select * from topic where open=0 and id=?';
+        var sql2 = 'select * from topic where open=0';
+        if(id){
+            conn.query(sql1, [id], function(err, topic, fields){
+                if(!err){
+
+                    res.render('new',{topic:topic[0]})
+                }else{
+                    console.log(err);
+                }
+            })
+        } else{
+            conn.query(sql2, function(err, topics, fields){
+                if(!err){
+                    res.render('new',{topics:topics})
+                }else{
+                    console.log(err);
+                }
+            })
+        }
     });
     route.get(['/','/:id'],function(req,res){
         var id = req.params.id;
@@ -68,7 +92,7 @@ module.exports = function (){
                         console.log(err);
                         res.status(500).send('internal server error')
                     }else{
-                        res.render('topic/view',{topics:topics,topic:topic[0], user:req.user,number:3})
+                        res.render('topic/view',{topic:topic[0], user:req.user,number:3})
                     }
                 })
             } else{
