@@ -1,8 +1,9 @@
 a(href='/topic/add') add  
 if topic
     a(href='/topic/'+topic.id+'/edit') edit  
-    a(href='/topic/'+topic.id+'/delete') delete 
-a(href='/topic') list
+    a(href='/topic/'+topic.id+'/delete') delete  
+a(href='/topic') list  
+a(href='/topic/oul') Other user list  
 p
 select.float-right(id="selector" )
   option(value="username") 작성자
@@ -10,7 +11,7 @@ select.float-right(id="selector" )
   option(value="tag") 태그
   option(value="기타") 기타
 a.float-right(id="searchBtn") search
-input.float-right(type="search",name="searchbox",id="searchbox")
+input.float-right(type="search",name="searchbox",id="searchbox",style="border:1px solid")
 script(type="text/javascript").
     function searchauthclicked(){
         var username=$('#searchbox').val();

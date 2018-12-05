@@ -1,6 +1,17 @@
 module.exports = function (){
     var route = require('express').Router();
     var conn = require('../../config/mysql/db')();
+    route.get('/oul',function(req,res){
+        var sql = 'select * from topic where open=0';
+        conn.query(sql,function(err,rows){
+            if(err) res.send(err);
+            else
+            {
+                console.log(rows[0]);
+                res.render('topic/view',{topics:rows,user:req.user})
+            }
+        })
+    })
     route.get('/add',function(req,res){
         var sql = 'select id,title from topic'
         conn.query(sql,function(err,topics,fields){
@@ -165,7 +176,7 @@ module.exports = function (){
     });
     route.post('/search/auth/:username',function(req,res){
         var username = req.params.username;
-        var sql = 'select * from topic where author=?';
+        var sql = 'select * from topic where author=? and open=0';
         conn.query(sql,[username],function(err,rows){
             if(err) res.send(err);
             else 
@@ -188,7 +199,7 @@ module.exports = function (){
     })
     route.post('/search/tag/:tag',function(req,res){
         var tag = req.params.tag;
-        var sql = 'select * from topic where tag=?';
+        var sql = 'select * from topic where tag=? and open=0';
         conn.query(sql,[tag],function(err,rows){
             if(err) res.send(err);
             else 
@@ -209,6 +220,19 @@ module.exports = function (){
             }
         })
     })
+    route.get('/tag/:tag',function(req,res){
+        var tag = req.params.tag;
+        var sql = 'select * from topic where tag=? and open=0';
+        conn.query(sql,[tag],function(err,rows){
+            if(err) res.send(err);
+            else
+            {
+                res.render('topic/view',{topics:rows,user:req.user,tag:tag});   
+            }
+        })
+    })
+
+    
     
 
     
