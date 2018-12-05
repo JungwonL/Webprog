@@ -14,7 +14,6 @@ html(lang="en")
     script(src="http://code.jquery.com/jquery-1.11.1.min.js")
     script(type="text/javascript").
       function idnullcheck(){
-        alert('ajax진입');
         $.ajax({
           url:'/auth/idcheck',
           type:'post',
@@ -25,12 +24,11 @@ html(lang="en")
           success:function(data){
             if(data==$('#username').val()){
               alert('아이디사용가능');
-              alert(data);
               $('#username').val(data);
             }else{
               alert('아이디 사용중 희망아이디 사용불가');
               $('#username').val(data); 
-              event.preventDefult();
+              event.preventDefault();
             }
           }
         });
@@ -106,7 +104,7 @@ html(lang="en")
             - for(var i=1; i <5; i++){
               div(style="display:inline;width:270px;height:210px;margin:3px;")
                 label
-                  img(src="../../img/"+i+".jpg" style="width:270px;height:200px;")
+                  img(src="../../img/"+i+".jpg" style="width:260px;height:200px;")
                   div(style="text-align:center")
                   if(i==1)
                     input(type='radio', name="picture", value=i,onchange="picturenullcheck()",checked)

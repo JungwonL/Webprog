@@ -29,7 +29,7 @@ module.exports = function (){
                 });                
             } else{
                 console.log(topics);        
-                res.render('topic/masterview',{topics:topics, user:req.user,number:3})  
+                res.render('topic/masterview',{topics:topics, user:req.user})  
             }           
         })
     });
@@ -40,7 +40,7 @@ module.exports = function (){
         var author = req.user.username;
         var sql = 'select * from topic where author=?';
         conn.query(sql,[author],function(err,topics,fields){        
-            res.render('topic/view',{topics:topics, user:req.user,number:3})  
+            res.render('topic/view',{topics:topics, user:req.user})  
         })
     });
     route.get(['/','/:id'],function(req,res){
@@ -163,6 +163,52 @@ module.exports = function (){
             res.redirect('/topic');
         })
     });
+    route.post('/search/auth/:username',function(req,res){
+        var username = req.params.username;
+        var sql = 'select * from topic where author=?';
+        conn.query(sql,[username],function(err,rows){
+            if(err) res.send(err);
+            else 
+            {
+                var output = '';
+                // output += '<div class="post-preview">';
+                for(var i=0;i<rows.length;i++)
+                {
+                    output += '<a href="/topic/'+rows[i].id+'">';
+                    output += '<h2 class="post-title">'+rows[i].title+'</h2>';
+                    output += '<h3 class="post-subtitle">'+rows[i].description+'</h3>';
+                    output += '</a>';
+                    output += '<hr>';
+                }
+                // output += '</div>';
+                               
+                res.send(output);
+            }
+        })
+    })
+    route.post('/search/tag/:tag',function(req,res){
+        var tag = req.params.tag;
+        var sql = 'select * from topic where tag=?';
+        conn.query(sql,[tag],function(err,rows){
+            if(err) res.send(err);
+            else 
+            {
+                var output = '';
+                // output += '<div class="post-preview">';
+                for(var i=0;i<rows.length;i++)
+                {
+                    output += '<a href="/topic/'+rows[i].id+'">';
+                    output += '<h2 class="post-title">'+rows[i].title+'</h2>';
+                    output += '<h3 class="post-subtitle">'+rows[i].description+'</h3>';
+                    output += '</a>';
+                    output += '<hr>';
+                }
+                // output += '</div>';
+                               
+                res.send(output);
+            }
+        })
+    })
     
 
     

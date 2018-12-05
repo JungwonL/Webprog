@@ -22,7 +22,7 @@ html(lang="en")
     .container
       .row
         .col-lg-8.col-md-10.mx-auto
-          .post-preview
+          .post-preview#oldpost
             span.login100-form-title.p-b-32
               | 글 쓰기
             form(action='/topic/add' method='post')
@@ -39,6 +39,7 @@ html(lang="en")
               //-     input(type='text' name='author' placeholder='author')
               div
                   input.login100-form-btn(type='submit')
+          .post-preview#newpost
           //-   a(h
           // Pager
           .topicFunc            

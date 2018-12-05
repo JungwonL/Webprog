@@ -19,13 +19,13 @@ html(lang="en")
     .container
       .row
         .col-lg-8.col-md-10.mx-auto
-          .post-preview
+          .post-preview#oldpost
             h1='Delete '+topic.title
               form(action='/topic/'+topic.id+'/delete' method='post')
                   p
                     input(type='submit' value='yes')
               a(href='/topic/'+topic.id) no
-         
+          .post-preview#newpost
           // Pager
           .topicFunc
             include ../topicFunc.pug

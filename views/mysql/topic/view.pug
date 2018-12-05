@@ -6,10 +6,10 @@ html(lang="en")
     meta(name="description" content="")
     meta(name="author" content="")
     title 탭타이틀
-    style
-      
+    style      
       include ../../../vendor/bootstrap/css/bootstrap.min.css
       include ../../../css/clean-blog.min.css
+    script(src="http://code.jquery.com/jquery-1.11.1.min.js")
   body
     // Navigation
     include ../navigation.pug
@@ -19,7 +19,7 @@ html(lang="en")
     .container
       .row
         .col-lg-8.col-md-10.mx-auto
-          .post-preview
+          .post-preview#oldpost
             if topic
               h2.post-title
                 =topic.title
@@ -40,14 +40,9 @@ html(lang="en")
                   | 로그인을 해주세요!!
                 h3.post-subtitle
                   | 로그인을 하시면 본인이 쓴 글들이 이곳에 나타납니다 ^\&^
+          .post-preview#newpost
           // Pager
-          .topicFunc            
-            a(href='/topic/add') add  
-            if topic
-              a(href='/topic/'+topic.id+'/edit') edit  
-              a(href='/topic/'+topic.id+'/delete') delete  
-            a(href='/topic') list
-            a.btn.btn-primary.float-right(href="#") 이버튼재활용생각해봅시다 →
+          include ../topicFunc
     hr
     // Footer
     footer

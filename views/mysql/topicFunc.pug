@@ -4,5 +4,52 @@ if topic
     a(href='/topic/'+topic.id+'/delete') delete 
 a(href='/topic') list
 p
-a.float-rigth(='/topic/search') search
-input.float-ritght(type="search")
+select.float-right(id="selector" )
+  option(value="username") 작성자
+  option(value="value") 내용
+  option(value="tag") 태그
+  option(value="기타") 기타
+a.float-right(id="searchBtn") search
+input.float-right(type="search",name="searchbox",id="searchbox")
+script(type="text/javascript").
+    function searchauthclicked(){
+        var username=$('#searchbox').val();
+        $.ajax({
+            url:'/topic/search/auth/'+username,
+            type:'post',
+            data:{
+                username:$('#searchbox').val()
+            },
+            success:function(data){
+                $('#oldpost').remove();
+                $('#newpost').append(data);
+            }
+        })
+    }
+    function searchtagclicked(){
+        var tag=$('#searchbox').val();
+        $.ajax({
+            url:'/topic/search/tag/'+tag,
+            type:'post',
+            data:{
+                tag:$('#searchbox').val()
+            },
+            success:function(data){
+                $('#oldpost').remove();
+                $('#newpost').append(data);
+            }
+        })
+    }
+    $(document).ready(function(){
+        $('#searchBtn').click(function(event){
+            var selection = $('#selector').val();
+            if(selection=='username'){
+                searchauthclicked();
+            }else if (selection=='tag'){
+                searchtagclicked();
+            }else{
+
+            }
+            event.preventDefault();
+        })
+    })

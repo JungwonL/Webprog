@@ -20,7 +20,7 @@ html(lang="en")
     .container
       .row
         .col-lg-8.col-md-10.mx-auto
-          .post-preview
+          .post-preview#oldpost
             span.login100-form-title.p-b-32
               | 글 수정
             form(action='/topic/'+topic.id+'/edit' method='post')
@@ -37,6 +37,7 @@ html(lang="en")
               //-   input.input100(type='text' name='author' value=topic.author placeholder='author')
               div
                   input.login100-form-btn(type='submit')
+          .post-preview#newpost
           // Pager
           .topicFunc
             

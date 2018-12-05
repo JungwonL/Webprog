@@ -6,6 +6,7 @@ module.exports = function(){
 
     var app = express();
     
+    app.locals.pretty = true;
     app.use(express.static('public'));
     app.set('views', './views/mysql');
     app.set('view engine', 'jade');
