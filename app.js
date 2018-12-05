@@ -13,6 +13,7 @@ app.set('views', './views/mysql')
 
 app.get('/',function(req,res){
     if(req.user){
+        console.log(req.user);
         res.redirect("/topic");
     } else {
         res.render("new", {user:req.user,number:3});

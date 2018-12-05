@@ -155,8 +155,7 @@ module.exports = function (){
                 }
             });
         });
-    })
-    
+    })    
     route.post('/:id/delete',function(req,res){
         var id = req.params.id;
         var sql = 'delete from topic where id=?';
@@ -164,13 +163,8 @@ module.exports = function (){
             res.redirect('/topic');
         })
     });
-        /*
-        //fs.writeFile('data/'+title,description,function(err){
-            if(err){
-                res.status(500).send('Internal Server Error');
-            }        
-            res.redirect('/topic/'+title);
-        //});
-        */
+    
+
+    
     return route;
 }

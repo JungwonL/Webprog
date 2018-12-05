@@ -3,12 +3,14 @@ module.exports = function(app){
     var bkfd2Password = require("pbkdf2-password");
     var passport = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
+    var flash = require('connect-flash');
     var hasher = bkfd2Password();
     
     
     app.use(passport.initialize());
     app.use(passport.session());
-    
+    app.use(flash());
+    // passport.authenticate('local', { failureFlash: 'Invalid username or password.' });
     passport.serializeUser(function(user, done) {
         console.log('serializeUser', user);
         done(null, user.authId);
@@ -32,20 +34,20 @@ module.exports = function(app){
             var sql = 'SELECT * FROM users WHERE authId=?';
             conn.query(sql, ['local:'+uname], function(err, results){
                 if(err){
-                return done('There is no user.');
+                    return done('There is no user.');
                 }
                 var user = results[0];
                 return hasher({password:pwd, salt:user.salt}, function(err, pass, salt, hash){
-                if(hash === user.password){
-                    console.log('LocalStrategy', user);
-                    done(null, user);
-                } else {
-                    done(null, false);
-                }
+                    if(hash === user.password){
+                        console.log('LocalStrategy', user);
+                        done(null, user);
+                    } else {
+                        done(null, false,{message: "Invalid username or password."});
+                    }
                 });
             });
         }
     ));
-
+    
     return passport;
 }

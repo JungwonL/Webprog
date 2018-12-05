@@ -25,6 +25,7 @@ html(lang="en")
           success:function(data){
             if(data==$('#username').val()){
               alert('아이디사용가능');
+              alert(data);
               $('#username').val(data);
             }else{
               alert('아이디 사용중 희망아이디 사용불가');
