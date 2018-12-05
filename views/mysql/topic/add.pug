@@ -30,29 +30,37 @@ html(lang="en")
               span.txt1.p-b-11
                 | 글 제목
               div
-                input.input100(type='text' name='title' placeholder='title' onchange='openFunc()')
+                input.input100(type='text' name='title' placeholder='title' )
               span.txt1.p-b-11
                 | 글 내용
               div
                 textarea.input100(name='description' placeholder='description',style="height:150px;")
+              div
+                input(type="hidden" id="opencheck" name="opencheck" value="0")
               p
               div
-              span.txt3(id="chkBox")
+              span.txt3(id="selectbox" name="selectbox")
                 | *비밀글 희망시 체크해주세요  
-                input(type="checkbox" name="chkBox" value="open")
+                input(type="checkbox" name="chkBox" id="chkBox" value="open")
               div
                 input.login100-form-btn(type='submit')
                 script(type="text/javascript").
-                  var openFunc = function(){
-                    var c = $('#chkbox').is(":checked");
-                    alert(c);
+                  function changecheckval(){
+                    if($('#opencheck').val()==0)
+                    {
+                      $('#opencheck').val(1);      
+                    } else{
+                      $('#opencheck').val(0);                        
+                    }
                   }
-                  alert(document.getElementById("chkBox").getAttribute("checked"))
-          //-   a(h
+                  $(document).ready(function(){
+                    $('#chkBox').click(function(){
+                      changecheckval();
+                    })
+                  })
           // Pager
           .topicFunc            
             include ../topicFunc.pug
-            //- a.btn.btn-primary.float-right(href="#") 이버튼재활용생각해봅시다 →
     hr
     // Footer
     footer

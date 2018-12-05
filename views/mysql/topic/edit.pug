@@ -11,6 +11,7 @@ html(lang="en")
       include ../../../css/main.css
       include ../../../vendor/bootstrap/css/bootstrap.min.css
       include ../../../css/clean-blog.min.css
+    script(src="http://code.jquery.com/jquery-1.11.1.min.js")  
   body
     // Navigation
     include ../navigation.pug
@@ -33,22 +34,37 @@ html(lang="en")
                 | 글 내용
               div
                 textarea.input100(name='description'  placeholder='description',style="height:150px;")=topic.description
+              div
+                input(type="hidden" id="opencheck" name="opencheck" value=topic.open)
               p
               div
-              span.txt3
+              span.txt3(id="selectbox" name="selectbox")
                 | *비밀글 희망시 체크해주세요  
-                input(type="checkbox" name="chkBox")
+                input(type="checkbox" name="chkBox" id="chkBox" value="open")
               div
                   input.login100-form-btn(type='submit')
+                  script(type="text/javascript").
+                    function changecheckval(){
+                      if($('#opencheck').val()==0)
+                      {
+                        $('#opencheck').val(1);      
+                      } else{
+                        $('#opencheck').val(0);                        
+                      }
+                    }
+                    $(document).ready(function(){
+                      if($('#opencheck').val()==1)
+                      {
+                        var chk=document.getElementsByName("chkBox");
+                        chk[0].checked=true;
+                      }                 
+                      $('#chkBox').click(function(){
+                        changecheckval();
+                      })
+                    })
           // Pager
           .topicFunc
-            
-            a(href='/topic/add') add  
-            if topic
-              a(href='/topic/'+topic.id+'/edit') edit  
-              a(href='/topic/'+topic.id+'/delete') delete  
-            a(href='/topic') list
-            //- a.btn.btn-primary.float-right(href="#") 이버튼재활용생각해봅시다 →
+            include ../topicFunc.pug
     hr
     // Footer
     footer

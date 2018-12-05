@@ -80,22 +80,17 @@ module.exports = function (){
     route.post('/add',function(req,res){
         var title = req.body.title;
         var description = req.body.description;
-        var openCheck = req.body.chkBox;
-        console.log(openCheck);        
-        
-        console.log(req.user);
-
+        var opencheck = req.body.opencheck;
 
         var tag = 'tag';//<<--영헌이형 함수리턴 태그
         var author = req.user.username;
         var sql = 'insert into topic (title,description,author,open) values (?,?,?,?)';
-        conn.query(sql,[title,description,author,openCheck],function(err,result,fields){
+        conn.query(sql,[title,description,author,opencheck],function(err,result,fields){
             if(err){
                 console.log(err);
                 res.status(500).send('Internal Server Error');
             }
             else{
-                console.log(openCheck);
                 res.redirect('/topic/'+result.insertId);
             }
     
@@ -126,8 +121,9 @@ module.exports = function (){
         var title =req.body.title;
         var description =req.body.description;
         var id =req.params.id;
-        var sql = 'update topic set title=?, description=? where id=?'
-        conn.query(sql,[title,description,id],function(err,result,fields){
+        var opencheck = req.body.opencheck;
+        var sql = 'update topic set title=?, description=?,open=? where id=?'
+        conn.query(sql,[title,description,opencheck,id],function(err,result,fields){
             if(err){
                 console.log(err);
                 res.status(500).send('internal serer error2');
