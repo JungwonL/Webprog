@@ -9,14 +9,21 @@ var conn = require('./config/mysql/db')();
 
 
 app.set('view engine', 'pug'); 
-app.set('views', './views/mysql')
+app.set('views', './views/mysql');
 
 app.get('/',function(req,res){
+    var sql = 'select * from topic where open=0';
     if(req.user){
         console.log(req.user);
         res.redirect("/topic");
     } else {
-        res.render("new", {user:req.user,number:3});
+        conn.query(sql, function(err, topics, field){
+            if(!err){
+                res.render("new", {topics:topics});
+            }else{
+                console.log(err);
+            }
+        })
     }
 })
 app.listen(3000,function(){
