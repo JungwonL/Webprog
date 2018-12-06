@@ -115,11 +115,15 @@ module.exports = function (){
         })
     });
     
-    route.post('/add',function(req,res){
+    route.post('/add',function(req,res,next){
         var title = req.body.title;
         var description = req.body.description;
         var opencheck = req.body.opencheck;
-        var tag = new Array();
+        var tag1 = new Array();
+        var tag = 'dddddddd';
+        
+        // setTimeout(function(){res.redirect('/#contact')}, 10000);
+        
 
         var sentence = description;
         sentence = sentence.replace(/\,/g,'');    //, 제거
@@ -144,21 +148,21 @@ module.exports = function (){
             if (err) throw err;
             console.log('results: %j', results);
             
-            var res = entities.decode(results).toString();
-            res = res.replace('b','');        //Init 제거
-            res = res.replace(/\[/g,'');      //[ 제거
-            res = res.replace(/\]/g,'');      //] 제거
-            res = res.replace(/\(/g,'');      //( 제거
-            res = res.replace(/\)/g,'');      //) 제거
-            res = res.replace(/\"/g,'');      //" 제거
-            res = res.replace(/\s/g,'');      //공백 제거
-            res = res.replace(/\\/g,'');      // \제거(따옴표 처리에 필요)
+            var ress = entities.decode(results).toString();
+            ress = ress.replace('b','');        //Init 제거
+            ress = ress.replace(/\[/g,'');      //[ 제거
+            ress = ress.replace(/\]/g,'');      //] 제거
+            ress = ress.replace(/\(/g,'');      //( 제거
+            ress = ress.replace(/\)/g,'');      //) 제거
+            ress = ress.replace(/\"/g,'');      //" 제거
+            ress = ress.replace(/\s/g,'');      //공백 제거
+            ress = ress.replace(/\\/g,'');      // \제거(따옴표 처리에 필요)
     
-            res = res.split(',');
+            ress = ress.split(',');
 
             
-            for (i=0; i<res.length; i++)
-                console.log("RES["+i+"]:" + res[i]);
+            for (i=0; i<ress.length; i++)
+                console.log("ress["+i+"]:" + ress[i]);
             function Word(num, morphs, part) {
                 this.num = num;
                 this.morphs = morphs;
@@ -171,29 +175,43 @@ module.exports = function (){
             }
 
 
-            for (i=0; i<res.length; i+=3)
+            for (i=0; i<ress.length; i+=3)
             {
-                if (res[i+2] == "'NNG'"||res[i+2] == "'NNP'"){
-                    tag.push(res[i+1])
+                if (ress[i+2] == "'NNG'"||ress[i+2] == "'NNP'"){
+                    tag1.push(ress[i+1])
                 }
             }
             
-            for(i=0; i<tag.length; i++)
-            console.log(tag[i]);        
+            for(i=0; i<tag1.length; i++)
+            console.log(tag1[i]);  
+            tag = tag1[0];//<<--영헌이형 함수리턴 태그
+            console.log(tag);   
+   
         });
-        var tag1 = tag[0];//<<--영헌이형 함수리턴 태그
         var author = req.user.username;
         var sql = 'insert into topic (title,description,author,open,tag) values (?,?,?,?,?)';
-        conn.query(sql,[title,description,author,opencheck,tag1],function(err,result,fields){
-            if(err){
-                console.log(err);
-                res.status(500).send('Internal Server Error');
-            }
-            else{
-                res.redirect('/topic/'+result.insertId);
-            }
-    
-        })
+        function sleep(ms){
+            return setTimeout(function()
+            {
+                console.log('hi');
+                conn.query(sql,[title,description,author,opencheck,tag],function(err,result,fields){
+                    if(err){
+                        console.log(err);
+                        res.status(500).send('Internal Server Error');
+                    }
+                    else{
+                        res.redirect('/topic/'+result.insertId);
+                    }
+                })
+            },ms)            
+        }
+        sleep(5000);
+        console.log(tag+"hellow");   
+        
+
+
+        
+        
     })
     route.get(['/:id/edit'],function(req,res){
         var sql = 'select id,title from topic'
