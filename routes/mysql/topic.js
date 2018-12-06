@@ -184,7 +184,7 @@ module.exports = function (){
         var tag1 = tag[0];//<<--영헌이형 함수리턴 태그
         var author = req.user.username;
         var sql = 'insert into topic (title,description,author,open,tag) values (?,?,?,?,?)';
-        conn.query(sql,[title,description,author,opencheck,tag],function(err,result,fields){
+        conn.query(sql,[title,description,author,opencheck,tag1],function(err,result,fields){
             if(err){
                 console.log(err);
                 res.status(500).send('Internal Server Error');
