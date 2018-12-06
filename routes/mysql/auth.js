@@ -62,7 +62,7 @@ module.exports=function(passport){
       if(row[0]==undefined){
         res.send(username);
       }else{
-        res.send('Someone already using T.T');
+        res.send('');
       }
     })
   })
