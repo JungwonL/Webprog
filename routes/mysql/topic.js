@@ -1,6 +1,10 @@
 module.exports = function (){
+
     var route = require('express').Router();
     var conn = require('../../config/mysql/db')();
+    var entities = require('entities');
+    let {PythonShell} = require('python-shell')
+
     route.get('/oul',function(req,res){
         var sql = 'select * from topic where open=0';
         conn.query(sql,function(err,rows){
@@ -111,25 +115,103 @@ module.exports = function (){
         })
     });
     
-   
-    route.post('/add',function(req,res){
+    route.post('/add',function(req,res,next){
         var title = req.body.title;
         var description = req.body.description;
         var opencheck = req.body.opencheck;
+        var tag1 = new Array();
+        var tag = 'dddddddd';
+        
+        // setTimeout(function(){res.redirect('/#contact')}, 10000);
+        
 
-        var tag = 'tag';//<<--영헌이형 함수리턴 태그
-        var author = req.user.username;
-        var sql = 'insert into topic (title,description,author,open) values (?,?,?,?)';
-        conn.query(sql,[title,description,author,opencheck],function(err,result,fields){
-            if(err){
-                console.log(err);
-                res.status(500).send('Internal Server Error');
-            }
-            else{
-                res.redirect('/topic/'+result.insertId);
+        var sentence = description;
+        sentence = sentence.replace(/\,/g,'');    //, 제거
+        sentence = sentence.replace(/\[/g,'');      //[ 제거
+        sentence = sentence.replace(/\]/g,'');      //] 제거
+        sentence = sentence.replace(/\(/g,'');      //( 제거
+        sentence = sentence.replace(/\)/g,'');      //) 제거
+        sentence = sentence.replace(/\"/g,'');      //" 제거
+          //  sentence = sentence.replace(/\s/g,'');      //공백 제거
+        sentence = sentence.replace(/\\/g,'');      // \제거(따옴표 처리에 필요)
+
+        var options = {
+            mode: 'text',
+            pythonPath: '',
+            pythonOptions: ['-u'],
+            scriptPath: '',
+            //encoding: 'utf8',
+            args: [sentence]
+        };
+        PythonShell.run('naturalize.py', options, function (err, results) {
+            console.log(sentence);
+            if (err) throw err;
+            console.log('results: %j', results);
+            
+            var ress = entities.decode(results).toString();
+            ress = ress.replace('b','');        //Init 제거
+            ress = ress.replace(/\[/g,'');      //[ 제거
+            ress = ress.replace(/\]/g,'');      //] 제거
+            ress = ress.replace(/\(/g,'');      //( 제거
+            ress = ress.replace(/\)/g,'');      //) 제거
+            ress = ress.replace(/\"/g,'');      //" 제거
+            ress = ress.replace(/\s/g,'');      //공백 제거
+            ress = ress.replace(/\\/g,'');      // \제거(따옴표 처리에 필요)
+    
+            ress = ress.split(',');
+
+            
+            for (i=0; i<ress.length; i++)
+                console.log("ress["+i+"]:" + ress[i]);
+            function Word(num, morphs, part) {
+                this.num = num;
+                this.morphs = morphs;
+                this.part = part;
+                this.getInfo = getWordInfo;
             }
     
-        })
+            function getWordInfo() {
+                return this.morphs + '(' + this.part + ')' + ' is used \"' + this.num + '\" times';
+            }
+
+
+            for (i=0; i<ress.length; i+=3)
+            {
+                if (ress[i+2] == "'NNG'"||ress[i+2] == "'NNP'"){
+                    tag1.push(ress[i+1])
+                }
+            }
+            
+            for(i=0; i<tag1.length; i++)
+            console.log(tag1[i]);  
+            tag = tag1[0];//<<--영헌이형 함수리턴 태그
+            console.log(tag);   
+   
+        });
+        var author = req.user.username;
+        var sql = 'insert into topic (title,description,author,open,tag) values (?,?,?,?,?)';
+        function sleep(ms){
+            return setTimeout(function()
+            {
+                console.log('hi');
+                conn.query(sql,[title,description,author,opencheck,tag],function(err,result,fields){
+                    if(err){
+                        console.log(err);
+                        res.status(500).send('Internal Server Error');
+                    }
+                    else{
+                        res.redirect('/topic/'+result.insertId);
+                    }
+                })
+            },ms)            
+        }
+        sleep(10000);
+        console.log(tag+"hellow");   
+        
+
+
+        
+        
     })
     route.get(['/:id/edit'],function(req,res){
         var sql = 'select id,title from topic'
@@ -157,16 +239,90 @@ module.exports = function (){
         var description =req.body.description;
         var id =req.params.id;
         var opencheck = req.body.opencheck;
-        var sql = 'update topic set title=?, description=?,open=? where id=?'
-        conn.query(sql,[title,description,opencheck,id],function(err,result,fields){
-            if(err){
-                console.log(err);
-                res.status(500).send('internal serer error2');
-            } else {
-                res.redirect('/topic/'+id);
+        var tag1 = new Array();
+        var tag = 'dddddddd';
+
+        var sentence = description;
+        sentence = sentence.replace(/\,/g,'');    //, 제거
+        sentence = sentence.replace(/\[/g,'');      //[ 제거
+        sentence = sentence.replace(/\]/g,'');      //] 제거
+        sentence = sentence.replace(/\(/g,'');      //( 제거
+        sentence = sentence.replace(/\)/g,'');      //) 제거
+        sentence = sentence.replace(/\"/g,'');      //" 제거
+          //  sentence = sentence.replace(/\s/g,'');      //공백 제거
+        sentence = sentence.replace(/\\/g,'');      // \제거(따옴표 처리에 필요)
+
+        var options = {
+            mode: 'text',
+            pythonPath: '',
+            pythonOptions: ['-u'],
+            scriptPath: '',
+            //encoding: 'utf8',
+            args: [sentence]
+        };
+        PythonShell.run('naturalize.py', options, function (err, results) {
+            console.log(sentence);
+            if (err) throw err;
+            console.log('results: %j', results);
+            
+            var ress = entities.decode(results).toString();
+            ress = ress.replace('b','');        //Init 제거
+            ress = ress.replace(/\[/g,'');      //[ 제거
+            ress = ress.replace(/\]/g,'');      //] 제거
+            ress = ress.replace(/\(/g,'');      //( 제거
+            ress = ress.replace(/\)/g,'');      //) 제거
+            ress = ress.replace(/\"/g,'');      //" 제거
+            ress = ress.replace(/\s/g,'');      //공백 제거
+            ress = ress.replace(/\\/g,'');      // \제거(따옴표 처리에 필요)
+    
+            ress = ress.split(',');
+
+            
+            for (i=0; i<ress.length; i++)
+                console.log("ress["+i+"]:" + ress[i]);
+            function Word(num, morphs, part) {
+                this.num = num;
+                this.morphs = morphs;
+                this.part = part;
+                this.getInfo = getWordInfo;
             }
     
-        })
+            function getWordInfo() {
+                return this.morphs + '(' + this.part + ')' + ' is used \"' + this.num + '\" times';
+            }
+
+
+            for (i=0; i<ress.length; i+=3)
+            {
+                if (ress[i+2] == "'NNG'"||ress[i+2] == "'NNP'"){
+                    tag1.push(ress[i+1])
+                }
+            }
+            
+            for(i=0; i<tag1.length; i++)
+            console.log(tag1[i]);  
+            tag = tag1[0];//<<--영헌이형 함수리턴 태그
+            console.log(tag);   
+   
+        });
+
+        var sql = 'update topic set title=?, description=?,tag=?,open=? where id=?'
+        function sleep(ms){
+            return setTimeout(function()
+            {
+                conn.query(sql,[title,description,tag,opencheck,id],function(err,result,fields){
+                    if(err){
+                        console.log(err);
+                        res.status(500).send('internal serer error2');
+                    } else {
+                        res.redirect('/topic/'+id);
+                    }
+            
+                })
+            },ms)            
+        }
+        sleep(10000);       
+        
     });
     
     route.get('/:id/delete',function(req,res){
