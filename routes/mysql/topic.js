@@ -5,6 +5,7 @@ module.exports = function (){
     var entities = require('entities');
     let {PythonShell} = require('python-shell')
 
+    
     route.get('/oul',function(req,res){
         var sql = 'select * from topic where open=0';
         conn.query(sql,function(err,rows){
@@ -66,7 +67,6 @@ module.exports = function (){
         if(id){
             conn.query(sql1, [id], function(err, topic, fields){
                 if(!err){
-
                     res.render('new',{topic:topic[0]})
                 }else{
                     console.log(err);
@@ -85,6 +85,7 @@ module.exports = function (){
     route.get(['/','/:id'],function(req,res){
         var id = req.params.id;
         var author = req.user.username;
+        var otheruser = true;
         var sql = 'select id,title from topic where author=?';
         conn.query(sql,[author],function(err,topics,fields){  
             if(id){
@@ -96,7 +97,12 @@ module.exports = function (){
                         console.log(err);
                         res.status(500).send('internal server error')
                     }else{
-                        res.render('topic/view',{topic:topic[0], user:req.user,number:3})
+                        if(topic.author!=author){
+                            otheruser = true;
+                        }else{
+                            otheruser = false;
+                        }
+                        res.render('topic/view',{topic:topic[0], user:req.user,otheruser:otheruser})
                     }
                 })
             } else{

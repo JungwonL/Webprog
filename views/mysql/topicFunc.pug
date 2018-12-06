@@ -1,7 +1,9 @@
 a(href='/topic/add') add  
 if topic
-    a(href='/topic/'+topic.id+'/edit') edit  
-    a(href='/topic/'+topic.id+'/delete') delete  
+    if otheruser
+    else
+        a(href='/topic/'+topic.id+'/edit') edit  
+        a(href='/topic/'+topic.id+'/delete') delete  
 a(href='/topic') list  
 a(href='/topic/oul') Other user list  
 p
