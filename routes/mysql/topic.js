@@ -97,7 +97,7 @@ module.exports = function (){
                         console.log(err);
                         res.status(500).send('internal server error')
                     }else{
-                        if(topic.author!=author){
+                        if(topic[0].author!=author){
                             otheruser = true;
                         }else{
                             otheruser = false;
