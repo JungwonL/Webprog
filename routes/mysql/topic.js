@@ -191,6 +191,7 @@ module.exports = function (){
             for(i=0; i<tag1.length; i++)
             console.log(tag1[i]);  
             tag = tag1[0];//<<--영헌이형 함수리턴 태그
+            tag = tag.replace(/\'/g,'');
             console.log(tag);   
    
         });
