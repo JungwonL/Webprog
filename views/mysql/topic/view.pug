@@ -24,15 +24,14 @@ html(lang="en")
         .col-lg-8.col-md-10.mx-auto
           .post-preview#oldpost
             if topic
-              h2.post-title
-                =topic.title
-                br/
-              h3.post-subtitle
-                =topic.description
-                br/
-                div= '       by '+topic.author
-              a.float-right(href='/topic/tag/'+topic.tag) 태그 : 
-                =topic.tag
+              a
+                h2.post-title
+                  =topic.title
+                h3.post-subtitle
+                  =topic.description
+                  div= '       by '+topic.author
+                a.float-right(href='/topic/tag/'+topic.tag) 태그 : 
+                  =topic.tag
             else if topics
               each topic in topics
                 a(href="/topic/"+topic.id)

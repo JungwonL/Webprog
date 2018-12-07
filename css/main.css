@@ -242,7 +242,7 @@ iframe {
   font-size: 18px;
 
   display: block;
-  width: 338px;
+  width: 100%;
   background: transparent;
   height: 55px;
   padding: 0 25px 0 25px;
