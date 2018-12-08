@@ -30,15 +30,15 @@ html(lang="en")
                 | 글 제목
               div
                 input.input100(type='text' name='title' value=topic.title placeholder='title')
+              p
               span.txt1.p-b-11
                 | 글 내용
               div
-                textarea.input100(name='description'  placeholder='description',style="height:150px;")=topic.description
+                textarea.input100(name='description'  placeholder='description',style="height:200px;")=topic.description
               div
                 input(type="hidden" id="opencheck" name="opencheck" value=topic.open)
-              p
               div
-              span.txt3(id="selectbox" name="selectbox")
+              span.txt3(id="selectbox" name="selectbox", style="padding-top:10px")
                 | *비밀글 희망시 체크해주세요  
                 input(type="checkbox" name="chkBox" id="chkBox" value="open")
               div
