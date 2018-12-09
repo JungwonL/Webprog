@@ -18,14 +18,7 @@ module.exports = function (){
         })
     })
     route.get('/add',function(req,res){
-        var sql = 'select id,title from topic'
-        conn.query(sql,function(err,topics,fields){
-            if(err){
-                console.log(err);
-                res.status(500).send('err1');
-            }
-            res.render('topic/add',{topics:topics, user:req.user,number:3});
-        });
+        res.render('topic/add',{user:req.user});
     });
     route.get(['/master','/master/:id'],function(req,res){
         var sql1 = 'select id,title from topic';
@@ -90,8 +83,6 @@ module.exports = function (){
         conn.query(sql,[author],function(err,topics,fields){  
             if(id){
                 var sql = 'select * from topic where id=?';
-                console.log(id);
-                console.log(req.user);//TT
                 conn.query(sql,[id],function(err,topic,fields){
                     if(err){
                         console.log(err);
@@ -191,7 +182,6 @@ module.exports = function (){
             for(i=0; i<tag1.length; i++)
             console.log(tag1[i]);  
             tag = tag1[0];//<<--영헌이형 함수리턴 태그
-            tag = tag.replace(/\'/g,'');
             console.log(tag);   
    
         });
@@ -214,11 +204,6 @@ module.exports = function (){
         }
         sleep(10000);
         console.log(tag+"hellow");   
-        
-
-
-        
-        
     })
     route.get(['/:id/edit'],function(req,res){
         var sql = 'select id,title from topic'
