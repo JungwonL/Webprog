@@ -252,6 +252,8 @@ module.exports = function (){
         var opencheck = req.body.opencheck;
         var tag1 = new Array();
         var tag = 'dddddddd';
+        var tag2 ='tag2';
+        var tag3 ='tag3';
 
         var sentence = description;
         sentence = sentence.replace(/\,/g,'');    //, 제거
@@ -313,6 +315,8 @@ module.exports = function (){
             for(i=0; i<tag1.length; i++)
             console.log(tag1[i]);  
             tag = tag1[0];//<<--영헌이형 함수리턴 태그
+            tag2 = tag1[1];
+            tag3 = tag1[2];
             console.log(tag);   
    
         });
@@ -413,8 +417,8 @@ module.exports = function (){
     })
     route.get('/tag/:tag',function(req,res){
         var tag = req.params.tag;
-        var sql = 'select * from topic where tag=? and open=0';
-        conn.query(sql,[tag],function(err,rows){
+        var sql = 'select * from topic where open=0 and (tag=? or tag2=? or tag3=?)';
+        conn.query(sql,[tag,tag,tag],function(err,rows){
             if(err) res.send(err);
             else
             {

@@ -30,15 +30,15 @@ html(lang="en")
                 h3.post-subtitle
                   =topic.description
                   div= '       by '+topic.author
-                |태그 : 
-                a.float-right(href='/topic/tag/'+topic.tag) 
-                  =topic.tag
-                |, 
-                a.float-right(href='/topic/tag/'+topic.tag2) 
-                  =topic.tag2
-                |, 
-                a.float-right(href='/topic/tag/'+topic.tag3) 
-                  =topic.tag3
+                .float-right
+                  if topic.tag3
+                    a.float-right(href='/topic/tag/'+topic.tag3) 
+                      ='#'+topic.tag3
+                  if topic.tag2
+                    a.float-right(href='/topic/tag/'+topic.tag2) 
+                      ='#'+topic.tag2+', '
+                  a.float-right(href='/topic/tag/'+topic.tag) 
+                    ='#'+topic.tag+', '
             else if topics
               each topic in topics
                 if topic.open==1
