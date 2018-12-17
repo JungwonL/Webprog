@@ -31,14 +31,15 @@ html(lang="en")
                   =topic.description
                   div= '       by '+topic.author
                 .float-right
-                  if topic.tag3
-                    a.float-right(href='/topic/tag/'+topic.tag3) 
-                      ='#'+topic.tag3
-                  if topic.tag2
-                    a.float-right(href='/topic/tag/'+topic.tag2) 
-                      ='#'+topic.tag2+', '
-                  a.float-right(href='/topic/tag/'+topic.tag) 
-                    ='#'+topic.tag+', '
+                  div
+                    if topic.tag3
+                      a.float-right(href='/topic/tag/'+topic.tag3) 
+                        ='#'+topic.tag3
+                    if topic.tag2
+                      a.float-right(href='/topic/tag/'+topic.tag2 style="font-size:50px;") 
+                        ='#'+topic.tag2+', '
+                    a.float-right(href='/topic/tag/'+topic.tag style="font-size:100px;") 
+                      ='#'+topic.tag+', '
             else if topics
               each topic in topics
                 if topic.open==1
@@ -63,8 +64,13 @@ html(lang="en")
                 h3.post-subtitle
                   | 로그인을 하시면 본인이 쓴 글들이 이곳에 나타납니다 ^\&^
           .post-preview#newpost
-          // Pager
-          include ../topicFunc
+            p
+            p
+            p
+            p
+          //- Pager          
+          .post-preview#oldpost
+            include ../topicFunc
     hr
     // Footer
     footer
