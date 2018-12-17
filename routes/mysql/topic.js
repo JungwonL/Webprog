@@ -127,6 +127,8 @@ module.exports = function (){
         var opencheck = req.body.opencheck;
         var tag1 = new Array();
         var tag = 'dddddddd';
+        var tag2 ='tag2';
+        var tag3 ='tag3';
         
         // setTimeout(function(){res.redirect('/#contact')}, 10000);
         
@@ -191,17 +193,19 @@ module.exports = function (){
             for(i=0; i<tag1.length; i++)
             console.log(tag1[i]);  
             tag = tag1[0];//<<--영헌이형 함수리턴 태그
+            tag2 = tag1[1];
+            tag3 = tag1[2];
             tag = tag.replace(/\'/g,'');
             console.log(tag);   
    
         });
         var author = req.user.username;
-        var sql = 'insert into topic (title,description,author,open,tag) values (?,?,?,?,?)';
+        var sql = 'insert into topic (title,description,author,open,tag,tag2,tag3) values (?,?,?,?,?,?,?)';
         function sleep(ms){
             return setTimeout(function()
             {
                 console.log('hi');
-                conn.query(sql,[title,description,author,opencheck,tag],function(err,result,fields){
+                conn.query(sql,[title,description,author,opencheck,tag,tag2,tag3],function(err,result,fields){
                     if(err){
                         console.log(err);
                         res.status(500).send('Internal Server Error');
