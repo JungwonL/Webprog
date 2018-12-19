@@ -321,11 +321,11 @@ module.exports = function (){
    
         });
 
-        var sql = 'update topic set title=?, description=?,tag=?,open=? where id=?'
+        var sql = 'update topic set title=?, description=?,tag=?,tag2=?,tag3=?,open=? where id=?'
         function sleep(ms){
             return setTimeout(function()
             {
-                conn.query(sql,[title,description,tag,opencheck,id],function(err,result,fields){
+                conn.query(sql,[title,description,tag,tag2,tag3,opencheck,id],function(err,result,fields){
                     if(err){
                         console.log(err);
                         res.status(500).send('internal serer error2');
